@@ -10,6 +10,11 @@ module CatalogBasedOrderApproval
           can: true,
           callback_name: 'can_approve_catalog_based_order_holds',
           name: 'Can Approve Catalog Based Order Approvals'
+        },
+        {
+          can: true,
+          callback_name: 'can_bypass_order_approvals',
+          name: 'Can bypass Order Approvals'
         }
       ]
     end
@@ -17,6 +22,9 @@ module CatalogBasedOrderApproval
   module Authorization
     module Permissions
 
+      def can_bypass_order_approvals
+        can :bypass_order_approvals, Order
+      end
 
       def can_approve_catalog_based_order_holds
         UserEditContext.call(@user, @site)
