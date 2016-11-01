@@ -27,8 +27,7 @@ module CatalogBasedOrderApproval
       end
 
       def can_approve_catalog_based_order_holds
-        UserEditContext.call(@user, @site)
-        ids = @user.full_claims.pluck(:id)
+        ids = @user.claims.for_site(@site).pluck(:id)
 
         ## Can view the approvals section
         can :view_order_approval_section, Order
